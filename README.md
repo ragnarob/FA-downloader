@@ -11,7 +11,7 @@ One album per line.
 To run the script: `python main.py album`
 
 ### Search in gallery
-This will download any image with a title containing a search term.
+Most artists don't put their comics in a folder, they just name them ComicName page X/Y. For downloading these comics, this mode can be used. This will download any image with a title containing a search term in an artist's gallery.
 
 Fill `ids.txt` with the following: `<artistname> <search term>`. Example: `ruaidri A Helping Hand`.
 
