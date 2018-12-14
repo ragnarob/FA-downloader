@@ -18,3 +18,5 @@ Fill `ids.txt` with the following: `<artistname> <search term>`. Example: `ruaid
 There has to be a space between the two. There may be spaces in the search term.
 
 One artist+search term per line.
+
+To run the script: `python main.py search`
