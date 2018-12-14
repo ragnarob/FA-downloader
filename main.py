@@ -24,10 +24,13 @@ class FAExporter():
 	def search(self):
 		artists = []
 
+		if not os.path.exists('output'):
+			os.makedirs('output')
+
 		with open('ids.txt', 'r') as txtfile:
 			for line in txtfile.readlines():
 				splitline = line.split(' ', 1)
-				artists.append({'artist': splitline[0], 'search': splitline[1].strip('\n')})
+				artists.append({'artist': splitline[0].replace('_', ''), 'search': splitline[1].strip('\n')})
 
 		for artist_obj in artists:
 			self.search_artist(artist_obj)
@@ -62,13 +65,13 @@ class FAExporter():
 		
 		folder_name = artist_obj['artist'] + ' - ' + artist_obj['search']
 		folder_name = folder_name.replace(':', '-').replace('/', 'of').replace('\\', 'of').replace('?', 'QMARK').replace('|', '-')
-		if not os.path.exists(folder_name):
-			os.makedirs(folder_name)
+		if not os.path.exists('output/' + folder_name):
+			os.makedirs('output/' + folder_name)
 			
 		if len(found_submissions):
 			for index, submission in enumerate(list(reversed(found_submissions))):
 				image_num = '0'+str(index) if index<10 else str(index)
-				self.get_submission(submission['id'], folder_name, image_num + '-' + submission['title'])
+				self.get_submission(submission['id'], folder_name, image_num + '-' + submission['title'], '{}/{}'/format(index, len(found_submissions)))
 				print('Downloaded file {} of {}'.format(index+1, len(found_submissions)))
 			
 
@@ -109,18 +112,18 @@ class FAExporter():
 			album_res = album_res[ album_res.find(slice_string) + 5 : ]
 
 		folder_name = album_artist + ' - ' + album_title
-		if not os.path.exists(folder_name):
-			os.makedirs(folder_name)
+		if not os.path.exists('output/' + folder_name):
+			os.makedirs('output/' + folder_name)
 		for index, submission_id in enumerate(list(reversed(submission_ids))):
 			image_num = '0'+str(index) if index<10 else str(index)
-			self.get_submission(submission_id, folder_name, image_num)
+			self.get_submission(submission_id, folder_name, image_num, '{}/{}'.format(index+1, len(submission_ids)))
 			print('Downloaded file {} of {}'.format(index+1, len(submission_ids)))
 
 
-	def get_submission(self, submission_id, output_folder, image_name):
+	def get_submission(self, submission_id, output_folder, image_name, progress_string):
 		image_name = image_name.replace(':', '-').replace('/', 'of').replace('\\', 'of').replace('?', 'QMARK').replace('|', '-')
 		url = 'http://www.furaffinity.net/view/'+submission_id
-		print(url)
+		print(progress_string, url)
 		response = requests.get(url, headers=self.header)
 		response = response.text
 
@@ -128,7 +131,7 @@ class FAExporter():
 		filetype = image_url[-3:].replace('peg', 'jpg')
 		
 		img_request = requests.get('https:'+image_url, headers=self.header, stream=True)
-		with open('{}/{}.{}'.format(output_folder.strip(), image_name, filetype), 'wb') as img_file:
+		with open('{}/{}.{}'.format('output/' + output_folder.strip(), image_name, filetype), 'wb') as img_file:
 			img_request.raw.decode_content = True
 			shutil.copyfileobj(img_request.raw, img_file)
 		
