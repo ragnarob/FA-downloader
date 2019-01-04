@@ -71,7 +71,7 @@ class FAExporter():
 		if len(found_submissions):
 			for index, submission in enumerate(list(reversed(found_submissions))):
 				image_num = '0'+str(index) if index<10 else str(index)
-				self.get_submission(submission['id'], folder_name, image_num + '-' + submission['title'], '{}/{}'/format(index, len(found_submissions)))
+				self.get_submission(submission['id'], folder_name, image_num + '-' + submission['title'], '{}/{}'.format(index, len(found_submissions)))
 				print('Downloaded file {} of {}'.format(index+1, len(found_submissions)))
 			
 
