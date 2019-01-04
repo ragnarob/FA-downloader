@@ -1,6 +1,12 @@
 # It's a work in progress :)
 
 ## How to
+First, in "a" and "b" cookies in `config.json`. How to find them:
+1. Log into furaffinity.net
+2. Open the console / inspect window
+3. Check the cookie (normally under "Application") `a` and `b` from the furaffinity.net cookie
+
+
 There are two "modes": Downloading a folder, and downloading all images matching a search term in an artist's gallery
 
 ### Folder
