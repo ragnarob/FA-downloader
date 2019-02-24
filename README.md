@@ -2,15 +2,15 @@
 
 ## How to
 First, in "a" and "b" cookies in `config.json`. How to find them:
-1. Log into furaffinity.net
+1. Log into fa.net
 2. Open the console / inspect window
-3. Check the cookie (normally under "Application") `a` and `b` from the furaffinity.net cookie
+3. Check the cookie (normally under "Application") `a` and `b` from the fa.net cookie
 
 
 There are two "modes": Downloading a folder, and downloading all images matching a search term in an artist's gallery
 
 ### Folder
-Fill `ids.txt` with FA album URLs. Example: http://www.furaffinity.net/gallery/spirale/folder/9862/Lucky-and-Chocolate-Charms.
+Fill `ids.txt` with FA album URLs.
 
 One album per line.
 
