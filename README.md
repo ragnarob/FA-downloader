@@ -1,4 +1,5 @@
-# It's a work in progress :)
+# It's a work in progress!
+(.. ish. It works now, but could be improved)
 
 ## How to
 First, in "a" and "b" cookies in `config.json`. How to find them:
