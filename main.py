@@ -5,20 +5,35 @@ import os
 import shutil
 
 class FAExporter():
-
 	def __init__(self):
 		with open('./config.json', 'r') as configfile:
 			self.config = json.load(configfile)
 		self.header = {'cookie': 'a={}; b={}'.format(self.config['cookie']['a'], self.config['cookie']['b'])}
 
-		self.main()
+		try:
+			self.main()
+		except FileNotFoundError:
+			print('ERROR: ids.txt does not exist.')
+			print('Please read the documentation and create this file accordingly.')
+		except requests.exceptions.ConnectionError:
+			print('ERROR downloading images. Most likely reason: the cookies (a and b) are incorrect')
+			print('Note that you need to retrieve these while logged in to furaffinity')
+			print('Here\'s an example of how these cookies should look: 9f283051-7d50-4609-b055-c9416c019836')
+			print('Maybe try running the script once more if this is the first time though :)')
+			print('Error type: ', e)
 
 
 	def main(self):
-		if sys.argv[1] == 'album':
+		if len(sys.argv) != 2:
+			print('Error: Incorrect call format. Parameter must be \'album\' or \'search\'.')
+			print('That means, either \'python main.py album\' or \'python main.py search\'')
+		elif sys.argv[1] == 'album':
 			self.get_albums()
 		elif sys.argv[1] == 'search':
 			self.search()
+		else:
+			print('Error: Incorrect call format. Parameter must be \'album\' or \'search\'.')
+			print('That means, either \'python main.py album\' or \'python main.py search\'')
 
 
 	def search(self):
@@ -132,5 +147,5 @@ class FAExporter():
 		with open('{}/{}.{}'.format('output/' + output_folder.strip(), image_name, filetype), 'wb') as img_file:
 			img_request.raw.decode_content = True
 			shutil.copyfileobj(img_request.raw, img_file)
-		
+
 FAExporter()
