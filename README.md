@@ -5,10 +5,10 @@
 First, in "a" and "b" cookies in `config.json`. How to find them:
 1. Log into fa.net
 2. Open the console / inspect window
-3. Check the cookie (normally under "Application") `a` and `b` from the fa.net cookie
+3. Find the fa.net cookies. Usually this is in the "Application" tab
+4. Copy the `a` and `b` cookie values into config.json
 
-
-There are two "modes": Downloading a folder, and downloading all images matching a search term in an artist's gallery
+There are two "modes": Downloading an actual folder, and downloading all images matching a search term in an artist's gallery
 
 ### Folder
 Fill `ids.txt` with FA album URLs.
